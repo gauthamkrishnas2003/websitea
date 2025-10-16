@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QILA 2025 | Cultural Fest</title>
+    <!-- Load Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Font for a modern look */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0d0d; /* Deep dark background */
+        }
+        /* Custom Splash Screen Styling */
+        #splash-screen {
+            background-color: #0d0d0d;
+            transition: opacity 1s ease-out;
+        }
+        /* Custom Colors based on implied logo scheme (Red and Green) */
+        .accent-red { color: #ef4444; } /* Tailwind red-500 equivalent */
+        .accent-green { color: #10b981; } /* Tailwind green-500 equivalent */
+        .bg-card { background-color: rgba(31, 41, 55, 0.8); } /* Subtle dark card */
+
+        /* Animation for the Home page to fade in */
+        #main-content {
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+
+        /* Ensure smooth scrolling on anchors */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Hide the mobile menu by default */
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+        }
+        .mobile-menu.active {
+            max-height: 500px; /* Large enough height to show all content */
+        }
+    </style>
+    <script>
+        // --- CONFIGURATION ---
+        // Using the verified Content Fetch IDs for the images
+        const LOGO_IMAGE_URL = 'uploaded:LOGO.jpeg-306f70c0-0ef6-46f4-ae99-dc4b4fb57607';
+        const EVENT_NAME_IMAGE_URL = 'uploaded:EVENT NAME.jpeg-e353dcc5-fbf3-491a-86d0-04a844a09585';
+        const EVENT_NAME = "QILA 2025";
+        const EVENT_DATE = "2025 ഒക്ടോബർ 19-22";
+        const EVENT_VENUE = "മെഡിക്കൽ കോളേജ്, കോട്ടയം";
+
+        /**
+         * Function to manage the logo splash screen fade-out and main content fade-in.
+         */
+        function startTransition() {
+            const splashScreen = document.getElementById('splash-screen');
+            const mainContent = document.getElementById('main-content');
+
+            // 1. Wait 2 seconds (Logo display time)
+            setTimeout(() => {
+                // 2. Start fading the splash screen out
+                splashScreen.style.opacity = '0';
+
+                // 3. Wait 1 second (Fade out duration)
+                setTimeout(() => {
+                    // Hide the splash screen completely
+                    splashScreen.style.display = 'none';
+
+                    // Fade the main content in
+                    mainContent.style.opacity = '1';
+                }, 1000);
+            }, 2000);
+        }
+
+        /**
+         * Toggles the visibility of the mobile navigation menu.
+         */
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+
+            menu.classList.toggle('active');
+            
+            // Toggle visibility of the menu/close icons
+            const isMenuOpen = menu.classList.contains('active');
+            menuIcon.classList.toggle('hidden', isMenuOpen);
+            closeIcon.classList.toggle('hidden', !isMenuOpen);
+        }
+
+        window.onload = startTransition;
+    </script>
+</head>
+<body class="text-white min-h-screen">
+
+    <!-- SPLASH SCREEN: FULL SCREEN LOGO FADE -->
+    <div id="splash-screen" class="fixed inset-0 flex items-center justify-center z-50">
+        <img
+            src="${LOGO_IMAGE_URL}"
+            alt="Event Logo"
+            class="w-full max-w-xs md:max-w-sm h-auto object-contain animate-pulse rounded-lg"
+            onerror="this.onerror=null; this.src='https://placehold.co/300x400/0d0d0d/ffffff?text=LOGO+FAIL';"
+        />
+    </div>
+
+    <!-- MAIN CONTENT (Initially invisible, fades in) -->
+    <div id="main-content" class="min-h-screen flex flex-col">
+
+        <!-- HEADER / NAVIGATION BAR -->
+        <header class="sticky top-0 z-40 bg-gray-900/90 shadow-lg border-b-2 border-red-500/80 backdrop-blur-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-16">
+                    <!-- Logo/Title -->
+                    <a href="#home" class="flex-shrink-0 text-2xl md:text-3xl font-extrabold tracking-tight text-white">
+                        QILA <span class="accent-red font-normal">2025</span>
+                    </a>
+
+                    <!-- Desktop Navigation -->
+                    <nav class="hidden md:flex space-x-4 text-sm md:text-base">
+                        <a href="#home" class="p-3 rounded-xl font-medium transition duration-300 text-white hover:text-red-500 hover:bg-gray-800">Home</a>
+                        <a href="#scoreboard" class="p-3 rounded-xl font-medium transition duration-300 text-white hover:text-green-500 hover:bg-gray-800">Scorecard</a>
+                        <a href="#results" class="p-3 rounded-xl font-medium transition duration-300 text-white hover:text-red-500 hover:bg-gray-800">Results</a>
+                        <a href="#gallery" class="p-3 rounded-xl font-medium transition duration-300 text-white hover:text-green-500 hover:bg-gray-800">Gallery</a>
+                        <a href="#announcements" class="p-3 rounded-xl font-medium transition duration-300 text-white hover:text-red-500 hover:bg-gray-800">Announcements</a>
+                        <a href="#contacts" class="p-3 rounded-xl font-medium transition duration-300 text-white hover:text-green-500 hover:bg-gray-800">Contact Details</a>
+                    </nav>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button type="button" onclick="toggleMenu()" class="md:hidden p-2 text-gray-300 hover:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-red-500">
+                        <!-- Menu Icon (Visible when closed) -->
+                        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                        <!-- Close Icon (Visible when open) -->
+                        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu" class="mobile-menu md:hidden bg-gray-900 border-t border-gray-700">
+                <a href="#home" onclick="toggleMenu()" class="block px-4 py-3 text-lg font-medium text-gray-200 hover:bg-gray-800 hover:text-red-500">Home</a>
+                <a href="#scoreboard" onclick="toggleMenu()" class="block px-4 py-3 text-lg font-medium text-gray-200 hover:bg-gray-800 hover:text-green-500">Scorecard</a>
+                <a href="#results" onclick="toggleMenu()" class="block px-4 py-3 text-lg font-medium text-gray-200 hover:bg-gray-800 hover:text-red-500">Results</a>
+                <a href="#gallery" onclick="toggleMenu()" class="block px-4 py-3 text-lg font-medium text-gray-200 hover:bg-gray-800 hover:text-green-500">Gallery</a>
+                <a href="#announcements" onclick="toggleMenu()" class="block px-4 py-3 text-lg font-medium text-gray-200 hover:bg-gray-800 hover:text-red-500">Announcements</a>
+                <a href="#contacts" onclick="toggleMenu()" class="block px-4 py-3 text-lg font-medium text-gray-200 hover:bg-gray-800 hover:text-green-500">Contact Details</a>
+            </div>
+        </header>
+
+        <!-- MAIN CONTENT SECTIONS -->
+        <main class="flex-grow max-w-7xl mx-auto px-4 w-full">
+
+            <!-- 1. HOME SECTION -->
+            <section id="home" class="py-12 md:py-20">
+                <div class="text-center py-12 bg-card rounded-3xl shadow-2xl border-b-4 border-green-500/80">
+
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4">
+                        QILA <span class="accent-red">2025</span>
+                    </h1>
+                    <p class="text-lg text-gray-300 mb-8 max-w-md mx-auto">
+                        നവീകരണത്തിന്റെയും സാംസ്കാരിക സൗഹൃദത്തിന്റെയും വേദിയൊരുക്കി, മെഡിക്കൽ കോളേജ് കോട്ടയം യൂണിയൻ കലോത്സവം.
+                    </p>
+
+                    <!-- EVENT NAME IMAGE as Design Element -->
+                    <div class="mb-10 p-4">
+                        <img
+                            src="${EVENT_NAME_IMAGE_URL}"
+                            alt="Event Name Design Element"
+                            class="w-full max-w-xs md:max-w-md mx-auto h-auto object-contain rounded-lg shadow-xl"
+                            onerror="this.onerror=null; this.src='https://placehold.co/300x100/1f2937/ffffff?text=EVENT+NAME+FAIL';"
+                        />
+                    </div>
+
+                    <!-- Event Details Card -->
+                    <div class="space-y-4 max-w-sm mx-auto p-6 rounded-xl bg-gray-800/60 shadow-inner">
+                        <div class="flex items-center justify-center text-gray-200">
+                            <!-- Calendar Icon -->
+                            <svg class="w-5 h-5 accent-green mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span class="font-semibold text-xl">{EVENT_DATE}</span>
+                        </div>
+                        <div class="flex items-center justify-center text-gray-200">
+                            <!-- Location Icon -->
+                            <svg class="w-5 h-5 accent-green mr-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span class="text-lg">{EVENT_VENUE}</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Placeholder for other sections -->
+            <div class="space-y-16 mt-8">
+                <!-- 2. SCORECARD SECTION -->
+                <section id="scoreboard" class="min-h-[40vh] pt-16 -mt-16">
+                    <div class="p-10 text-center bg-gray-800/80 rounded-2xl shadow-xl border-t-4 border-red-500">
+                        <h2 class="text-4xl font-bold accent-red mb-3">Scorecard</h2>
+                        <p class="text-gray-400">This section will contain the live, real-time scoreboard (to be implemented next).</p>
+                    </div>
+                </section>
+
+                <!-- 3. RESULTS SECTION -->
+                <section id="results" class="min-h-[40vh] pt-16 -mt-16">
+                    <div class="p-10 text-center bg-gray-800/80 rounded-2xl shadow-xl border-t-4 border-green-500">
+                        <h2 class="text-4xl font-bold accent-green mb-3">Results</h2>
+                        <p class="text-gray-400">Official final result summaries will be published here.</p>
+                    </div>
+                </section>
+
+                <!-- 4. GALLERY SECTION -->
+                <section id="gallery" class="min-h-[40vh] pt-16 -mt-16">
+                    <div class="p-10 text-center bg-gray-800/80 rounded-2xl shadow-xl border-t-4 border-red-500">
+                        <h2 class="text-4xl font-bold accent-red mb-3">Gallery</h2>
+                        <p class="text-gray-400">Photo and video archives from the event days.</p>
+                    </div>
+                </section>
+
+                <!-- 5. ANNOUNCEMENTS SECTION -->
+                <section id="announcements" class="min-h-[40vh] pt-16 -mt-16">
+                    <div class="p-10 text-center bg-gray-800/80 rounded-2xl shadow-xl border-t-4 border-green-500">
+                        <h2 class="text-4xl font-bold accent-green mb-3">Announcements</h2>
+                        <p class="text-gray-400">Real-time alerts, schedule changes, and important messages.</p>
+                    </div>
+                </section>
+
+                <!-- 6. CONTACT DETAILS SECTION -->
+                <section id="contacts" class="min-h-[40vh] pt-16 -mt-16">
+                    <div class="p-10 text-center bg-gray-800/80 rounded-2xl shadow-xl border-t-4 border-red-500">
+                        <h2 class="text-4xl font-bold accent-red mb-3">Contact Details</h2>
+                        <p class="text-gray-400">Organizing committee, support, and help desk information.</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- FOOTER -->
+        <footer class="bg-gray-900/90 border-t border-gray-700 py-6 mt-16">
+            <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-xs">
+                &copy; 2025 QILA. Designed with Passion.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
